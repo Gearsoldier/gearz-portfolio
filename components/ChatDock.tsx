@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import type { FormEvent, KeyboardEvent } from 'react';
-import { ask, greeting, QAResult } from '@/lib/qa';
+import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
+import { ask, greeting, type QAResult } from '@/lib/qa';
 
 type Msg = { role: 'assistant' | 'user'; text: string };
 
@@ -17,12 +16,11 @@ export default function ChatDock() {
   const dockRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // focus input when opening
     if (open) setTimeout(() => inputRef.current?.focus(), 50);
   }, [open]);
 
-  const handleSend = async (q: string) => {
-    const question = q.trim();
+  const handleSend = async (raw: string) => {
+    const question = raw.trim();
     if (!question || sending) return;
 
     setSending(true);
@@ -31,7 +29,7 @@ export default function ChatDock() {
     try {
       const res: QAResult = await ask(question);
       setMsgs((m) => [...m, { role: 'assistant', text: res.text }]);
-      setSuggestions(res.followups ?? []);
+      setSuggestions(Array.isArray(res.followups) ? res.followups : []);
     } catch {
       setMsgs((m) => [
         ...m,
@@ -59,7 +57,6 @@ export default function ChatDock() {
       e.preventDefault();
       void handleSend(input);
     }
-    // NOTE: we do NOT block Space — you can type normally.
   };
 
   return (
@@ -67,7 +64,6 @@ export default function ChatDock() {
       ref={dockRef}
       className="fixed right-4 bottom-24 z-[55] w-[380px] max-w-[90vw] rounded-2xl border border-white/10 bg-black/70 text-white/90 backdrop-blur shadow-lg"
     >
-      {/* header */}
       <div className="flex items-center justify-between px-3 py-2 border-b border-white/10">
         <div className="text-sm font-semibold">Recruiter Chat</div>
         <button
@@ -81,7 +77,6 @@ export default function ChatDock() {
 
       {open && (
         <>
-          {/* messages */}
           <div className="max-h-[320px] overflow-y-auto space-y-3 p-3">
             {msgs.map((m, i) => (
               <div
@@ -95,7 +90,6 @@ export default function ChatDock() {
             ))}
           </div>
 
-          {/* follow-up chips */}
           {suggestions.length > 0 && (
             <div className="flex flex-wrap gap-2 px-3 pb-2">
               {suggestions.map((s, idx) => (
@@ -110,7 +104,6 @@ export default function ChatDock() {
             </div>
           )}
 
-          {/* composer */}
           <form onSubmit={onSubmit} className="flex items-end gap-2 p-3 pt-0">
             <textarea
               ref={inputRef}
