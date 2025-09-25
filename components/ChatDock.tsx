@@ -1,3 +1,4 @@
+// components/ChatDock.tsx
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
@@ -34,10 +35,9 @@ export default function ChatDock() {
     try {
       const res: QAResponse = await askRecruiterBot(q)
 
-      // Main answer
       const next: Msg[] = [{ role: 'assistant', text: res.answer }]
 
-      // Optional followups (safe)
+      // SAFE: followups may be undefined
       const follow = (res.followups ?? []).slice(0, 4)
       if (follow.length > 0) {
         next.push({
@@ -47,7 +47,7 @@ export default function ChatDock() {
       }
 
       setMessages((m) => [...m, ...next])
-    } catch (e) {
+    } catch {
       setMessages((m) => [
         ...m,
         {
@@ -70,7 +70,6 @@ export default function ChatDock() {
 
   return (
     <div className="fixed bottom-4 right-4 z-[60]">
-      {/* Toggle button */}
       {!open && (
         <button
           className="rounded-full border border-white/10 bg-black/60 px-4 py-2 text-sm text-white/90 backdrop-blur hover:bg-black/70"
@@ -82,7 +81,6 @@ export default function ChatDock() {
         </button>
       )}
 
-      {/* Panel */}
       {open && (
         <div
           id="chatdock"
@@ -117,7 +115,6 @@ export default function ChatDock() {
             </div>
           </div>
 
-          {/* Messages */}
           <div className="flex-1 space-y-2 overflow-y-auto p-3">
             {messages.map((m, i) => (
               <div
@@ -134,7 +131,6 @@ export default function ChatDock() {
             <div ref={endRef} />
           </div>
 
-          {/* Composer */}
           <div className="border-t border-white/10 p-2">
             <textarea
               value={input}
