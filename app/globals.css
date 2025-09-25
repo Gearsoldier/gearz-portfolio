@@ -1,26 +1,66 @@
+/* app/globals.css */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* --- Base layer: global resets + body styles --- */
+@layer base {
+  :root{
+    --bg:#0a0d12;      /* deep slate */
+    --card:#0f1420;    /* glassy card */
+    --neon:#00E5FF;    /* cyan neon */
+    --accent:#FF8A3C;  /* warm neon */
+  }
+
+  html, body { height:100%; }
+  body { @apply bg-[var(--bg)] text-white selection:bg-cyan-300/30 selection:text-white; }
+
+  /* Scanline overlay */
+  .scanlines::before{
+    content:""; position:fixed; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,.04) 0px,
+      rgba(255,255,255,.04) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+    mix-blend-mode:overlay; opacity:.12;
+  }
+
+  /* Make raw <img> behave sanely */
+  img { display:block; max-width:100%; height:auto; }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* --- Components layer: classes that use @apply --- */
+@layer components {
+  .btn-neon{
+    @apply inline-flex items-center justify-center rounded-2xl font-semibold transition px-5 py-3;
+    color:#0a0d12;
+    background:linear-gradient(90deg,var(--neon),var(--accent));
+    box-shadow:0 0 22px rgba(0,229,255,.35),0 0 22px rgba(255,138,60,.18);
+  }
+  .btn-neon:hover{ transform: translateY(-1px) scale(1.01); }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  .btn-outline{
+    @apply inline-flex items-center justify-center rounded-2xl border px-5 py-3 font-medium;
+    border-color:rgba(125,249,255,.35);
+    background:rgba(15,20,32,.55);
+  }
+  .btn-outline:hover{ box-shadow:0 0 16px rgba(125,249,255,.18); }
+
+  .card{ @apply rounded-3xl border border-white/5 bg-[var(--card)]/70 backdrop-blur-xl shadow; }
+
+  .neon{ text-shadow:0 0 12px rgba(0,229,255,.35), 0 0 26px rgba(0,229,255,.25); }
+
+  .divider-neon{
+    height:2px; border-radius:9999px;
+    background:
+      radial-gradient(closest-side, rgba(125,249,255,.55), rgba(125,249,255,0)) center/100% 10px no-repeat,
+      linear-gradient(90deg, transparent, rgba(125,249,255,.6), transparent);
+    filter: drop-shadow(0 0 12px rgba(0,229,255,.35));
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* --- Utilities layer: tiny custom utilities (no @apply needed) --- */
+@layer utilities {
+  /* (empty for now) */
 }

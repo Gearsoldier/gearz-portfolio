@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#00E5FF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="400" fill="url(#g)"/>
+  <g fill="#0af" opacity="0.25">
+    <rect x="50"  y="140" width="40" height="160"/>
+    <rect x="120" y="180" width="28" height="120"/>
+    <rect x="170" y="120" width="36" height="180"/>
+    <rect x="240" y="200" width="26" height="100"/>
+    <rect x="300" y="150" width="34" height="150"/>
+    <rect x="360" y="170" width="22" height="130"/>
+    <rect x="420" y="110" width="46" height="190"/>
+    <rect x="500" y="160" width="30" height="140"/>
+    <rect x="560" y="140" width="34" height="160"/>
+    <rect x="620" y="190" width="22" height="110"/>
+    <rect x="680" y="130" width="36" height="170"/>
+    <rect x="740" y="170" width="28" height="130"/>
+    <rect x="800" y="100" width="44" height="200"/>
+    <rect x="880" y="160" width="28" height="140"/>
+    <rect x="940" y="130" width="34" height="170"/>
+    <rect x="1000" y="180" width="24" height="120"/>
+    <rect x="1060" y="120" width="38" height="180"/>
+    <rect x="1120" y="160" width="26" height="140"/>
+    <rect x="1180" y="150" width="30" height="150"/>
+    <rect x="1240" y="200" width="20" height="100"/>
+    <rect x="1300" y="130" width="34" height="170"/>
+    <rect x="1360" y="170" width="26" height="130"/>
+    <rect x="1420" y="110" width="44" height="190"/>
+    <rect x="1500" y="180" width="26" height="120"/>
+  </g>
+  <!-- subtle crosses as neon signs -->
+  <g stroke="#00E5FF" stroke-width="6" opacity="0.25">
+    <line x1="430" y1="140" x2="430" y2="200"/><line x1="410" y1="170" x2="450" y2="170"/>
+    <line x1="1110" y1="140" x2="1110" y2="200"/><line x1="1090" y1="170" x2="1130" y2="170"/>
+  </g>
+</svg>
